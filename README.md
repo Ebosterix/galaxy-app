@@ -23,6 +23,28 @@ npx http-server -c-1
 
 Then visit `http://localhost:8000` in your browser.
 
+Why ngrok is needed:
+
+Signup and install ngrok. Jenkins is running locally on my computer, which means GitHub cannot access it directly over the internet. Since GitHub webhooks require a publicly reachable URL to send push event notifications, I use ngrok to expose my local Jenkins server through a temporary public URL.
+
+This allows GitHub to communicate with Jenkins and trigger builds automatically whenever changes are pushed to the repository.
+
+For example, if Jenkins is running on port 8080, ngrok can be started with:
+
+ngrok http 8080
+
+ngrok then provides a public HTTPS URL, which is used in the GitHub webhook payload, for example:
+
+https://your-ngrok-url/github-webhook/
+
+Without ngrok, Jenkins can still run builds manually on the local machine, but automatic GitHub-triggered builds would not work.
+
+
+
+
+
+
+
 Files
 - `index.html` — main markup
 - `styles.css` — visuals and layout
